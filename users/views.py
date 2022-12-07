@@ -34,7 +34,7 @@ class RegistrationAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class LoginAPIView(APIView):
-    permission_class =(AllowAny,)
+    permission_classes =(AllowAny,)
     # authentication_classes =(JWTAuthentication, )
     serializer_class = LoginSerializer
     
@@ -46,9 +46,9 @@ class LoginAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ProfileAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-    # permission_class =(JWTAuthentication, )
-    # renderer_classes = (UserJSONRenderer,)
+    # permission_classes = [IsAuthenticated]
+    authentication_classes =(JWTAuthentication, )
+    renderer_classes = (UserJSONRenderer,)
     
     class Meta:
         error_messages = {"field1": {"required": ("For some reason this is a custom error message overriding the model's default")}}
