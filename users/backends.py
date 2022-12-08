@@ -5,7 +5,6 @@ from django.conf import settings
 from jwt.exceptions import ExpiredSignatureError
 from rest_framework import authentication, exceptions
 from rest_framework.request import Request
-from rest_framework.response import Response
 
 from .models import User
 
@@ -39,25 +38,5 @@ class JWTAuthentication(authentication.BaseAuthentication):
             # print(payload)
         except KeyError:
             # we dont have Authorization in Headers key and dont have token -> return None
-            raise exceptions.AuthenticationFailed("Key error")
+            raise exceptions.AuthenticationFailed("Authorization error")
             return None
-        
-        # print('some')
-        # try:
-        #     prefix_token:str = request.headers['Authorization']
-        #     #'Authorization': 'Bearer qwerty' 
-            
-        #     auth_data = prefix_token.split(' ')
-        #     payload = jwt.decode(auth_data[1], settings.SECRET_KEY, algorithms=['HS256'])
-            
-        #     try:
-        #         user = User.objects.get(pk=payload['id'])
-        #         if not user.is_active:
-        #             msg = 'Данный пользователь деактивирован.'
-        #             raise exceptions.AuthenticationFailed(msg)
-        #         return User, payload['id']
-        #     except User.DoesNotExist:
-        #         msg = 'Пользователь соответствующий данному токену не найден.'
-        #         raise exceptions.AuthenticationFailed(msg)
-        # except Exception as e: 
-        #    raise exceptions.AuthenticationFailed(e)

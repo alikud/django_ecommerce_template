@@ -16,7 +16,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # Клиентская сторона не должна иметь возможность отправлять токен вместе с
     # запросом на регистрацию. Сделаем его доступным только на чтение.
     token = serializers.CharField(
-        max_length=255, 
+        max_length=255,
         read_only=True
         )
 
@@ -30,7 +30,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         # Использовать метод create_user, который мы
         # написали ранее, для создания нового пользователя.
         return User.objects.create_user(**validated_data)
-    
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=255)
     password = serializers.CharField(max_length=128, write_only=True)
