@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 # Create your models here.
 import jwt
 from django.conf import settings
-from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
-                                        PermissionsMixin)
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 
 from .services.user_manager import UserManager
@@ -20,12 +19,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['email']
 
-    
     objects = UserManager()
 
     def __str__(self):
         return self.email
-    
+
     @property
     def token(self):
         """

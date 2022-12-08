@@ -43,11 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #packages
     'rest_framework',
-    
-    
+
+
     #aps
     'parser_app',
     'users',
+    'board',
     'rest_framework.authtoken',
     'djoser',
 ]
