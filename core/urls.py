@@ -25,5 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/parser/', include('parser_app.urls')),
     path('api/users/', include('users.urls', namespace='authentication')),
-    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/tasks/', include('board.urls'), namespace='board')
 ]
