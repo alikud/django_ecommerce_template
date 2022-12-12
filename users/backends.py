@@ -1,5 +1,3 @@
-from tkinter import E
-
 import jwt
 from django.conf import settings
 from jwt.exceptions import ExpiredSignatureError
@@ -8,6 +6,20 @@ from rest_framework.request import Request
 
 from .models import User
 
+
+class WebTestAuthentication(authentication.BaseAuthentication):
+    """
+    Auth backend for tests that use webtest with Django Rest Framework.
+    """
+    header = 'WEBTEST_USER'
+
+    def authenticate(self, request):
+        assert ValueError('exist')
+        value = request.META.get(self.header)
+        if value:
+            user = authentication.authenticate(django_webtest_user=value)
+            if user and user.is_active:
+                return user, None
 
 class JWTAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request: Request):
@@ -27,16 +39,16 @@ class JWTAuthentication(authentication.BaseAuthentication):
         """
         print('CALL AUTHENTICATE!')
         try:
-            token = request.headers['Authorization']
+            token = request.headers['Token']
             try:
                 payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
                 # id extp
                 user = User.objects.get(pk=payload['id'])
                 return User, payload['id']
-            except ExpiredSignatureError:
-                print("faile to decode token")
-            # print(payload)
+            except ExpiredSignatureError as e:
+                # token can be invalid, np. expiried
+                raise exceptions.AuthenticationFailed(e)
+
         except KeyError:
             # we dont have Authorization in Headers key and dont have token -> return None
             raise exceptions.AuthenticationFailed("Authorization error")
-            return None
