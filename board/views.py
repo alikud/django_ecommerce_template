@@ -14,8 +14,8 @@ from .models import Category, Subsciber, Tags, Task
 # from .api.serializers import LoginSerializer, RegistrationSerializer
 
 class TaskAPIView(APIView):
-    authentication_classes = [JWTAuthentication]
-    # permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     # Some CRUD
     def post(self, request):
