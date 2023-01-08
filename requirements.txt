@@ -73,6 +73,7 @@ psycopg2-binary==2.9.5
 pudb==2022.1.3
 pycparser==2.21
 Pygments==2.13.0
+pycparser==2.21
 PyJWT==2.6.0
 pylint==2.15.7
 pylint-django==2.5.3
@@ -85,6 +86,7 @@ pytest-factoryboy==2.5.1
 pytest-pudb==0.7.0
 pytest-sugar==0.9.6
 pytest-xdist==3.1.0
+pytest-django==4.5.2
 python-crontab==2.6.0
 python-dateutil==2.8.2
 python3-openid==3.2.0
