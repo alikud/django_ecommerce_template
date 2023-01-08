@@ -36,6 +36,7 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==4.8.0
 djoser==2.1.0
 drf-yasg==1.21.4
+environ==1.0
 exceptiongroup==1.0.4
 execnet==1.9.0
 factory-boy==3.2.1

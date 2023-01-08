@@ -5,11 +5,12 @@ import jwt
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
-
+import uuid
 from .services.user_manager import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key = True,default = uuid.uuid4, editable = False)
     email = models.EmailField(db_index=True, unique=True, max_length=128)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -26,22 +27,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def token(self):
-        """
-        Позволяет получить токен пользователя путем вызова user.token, вместо
-        user._generate_jwt_token(). Декоратор @property выше делает это
-        возможным. token называется "динамическим свойством".
-        """
         return self.generate_jwt_token()
 
     def generate_jwt_token(self):
-        """
-        Генерирует веб-токен JSON, в котором хранится идентификатор этого
-        пользователя, срок действия токена составляет 1 день от создания
-        """
         dt = datetime.now() + timedelta(days=1)
 
         token = jwt.encode({
-            'id': self.pk,
+            'id': str(self.pk),
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')
 

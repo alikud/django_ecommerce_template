@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.backends import JWTAuthentication
+from users.jwtAuthBackend import JWTAuthentication
 from users.models import User
 
 from .models import Category, Subsciber, Tags, Task
