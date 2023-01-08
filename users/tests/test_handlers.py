@@ -1,19 +1,39 @@
 import pytest
-from django.db.utils import IntegrityError
-from users.models import User
 import requests
-from django.urls import get_resolver
+from django.db.utils import IntegrityError
 from django.test import Client
-
+from django.urls import get_resolver
+from users.models import User
+import json
+from rest_framework.test import APIClient, APIRequestFactory
+from users.views import LoginAPIView
 
 pytestmark = [pytest.mark.django_db]
 
+email = 'email_from_test@mail.com'
+token = ''
+password = 'ahjksdhklh123'
 
-@pytest.mark.parametrize("handler_path,expected_code", [("registration", 403), ("login", 403), ("profile", 403)])
-def test_check_health_handlers(handler_path, expected_code):
-    c = Client()
-    response = c.get(f"http://localhost:8000/api/users/{handler_path}/")
-    assert response.status_code == expected_code
+class TestUsers:
+    def test_my_user(self, user):
+        me: User = User.objects.get(email='somemail@gmail.com')
+        assert me.token == user.token
+        assert not me.is_superuser
 
-def test_some():
-    print(get_resolver().reverse_dict.keys())
+    @pytest.mark.urls('users.urls')
+    def test_something(self, client):
+        assert 'Success!' in client.post('/login/').content
+
+    @pytest.mark.urls('users.urls')
+    def test_details(self, rf):
+        request = rf.get('/login/')
+        response = LoginAPIView(request)
+        assert response.status_code == 200
+
+
+# class TestUsers:
+#     pytestmark = pytest.mark.django_db
+
+#     def test_my_user(self):
+#         me = User.objects.get(email='somemail@gmail.com')
+#         assert me.is_superuser
