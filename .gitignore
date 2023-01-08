@@ -8,7 +8,8 @@ media
 .vscode
 # Backup files #
 *.bak
-
+static
+.static
 # If you are using PyCharm #
 # User-specific stuff
 .idea/**/workspace.xml
