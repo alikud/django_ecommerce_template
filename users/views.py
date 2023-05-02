@@ -10,9 +10,6 @@ from users.jwtAuthBackend import JWTAuthentication
 from .serializers import LoginSerializer, RegistrationSerializer
 
 
-# from .renders import UserJSONRenderer
-
-
 class RegistrationAPIView(APIView):
     permission_classes = (AllowAny,)
     serializer_class = RegistrationSerializer

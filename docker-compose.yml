@@ -18,6 +18,8 @@ services:
     ports:
     - "6379:6379"
 
+
+# if static dir does not exist - use COMMAND ['python manage.py collectstatic'] or create manualy
   # web:
   #   build: .
   #   command: python manage.py runserver 0.0.0.0:8000
