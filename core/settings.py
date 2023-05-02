@@ -43,15 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #packages
     'rest_framework',
-    'drf_yasg',
 
+    # swagger
+    'drf_yasg',
 
     #aps
     'parser_app',
     'users',
-    'board',
     'rest_framework.authtoken',
-    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -88,16 +87,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': "backend_db",
+#         'USER': "db_user",
+#         'PASSWORD': "pwd123",
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': "backend_db",
-        'USER': "db_user",
-        'PASSWORD': "pwd123",
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
+
 
 
 
@@ -152,27 +159,3 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-# sentry_sdk.init(
-#     dsn="https://ea7123c5ead54bb493d6215f5f52e577@o4504248282906624.ingest.sentry.io/4504248283889664",
-#     integrations=[DjangoIntegration()],
-
-#     # Set traces_sample_rate to 1.0 to capture 100%
-#     # of transactions for performance monitoring.
-#     # We recommend adjusting this value in production,
-#     traces_sample_rate=1.0,
-
-#     # If you wish to associate users to errors (assuming you are using
-#     # django.contrib.auth) you may enable sending PII data.
-#     send_default_pii=True,
-
-#     # By default the SDK will try to use the SENTRY_RELEASE
-#     # environment variable, or infer a git commit
-#     # SHA as release, however you may want to set
-#     # something more human-readable.
-#     # release="myapp@1.0.0",
-# )
